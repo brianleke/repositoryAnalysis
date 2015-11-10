@@ -23,28 +23,6 @@ def getRegexFilters():
         data = json.load(data_file)
     return data
 
-def getFilesThatMatchFilterForFilenameTypePattern(filters, path):
-    results = []
-    for filter in filters:
-        modifiedFilter = filter;
-        if filter['part'] == 'filename' and filter['type'] == 'regex':
-            filteredResult = commands.getoutput('find ' + path + ' -iname "*'+ filter['pattern'] +'"')
-            modifiedFilter['results'] = filteredResult.split('\n') if filteredResult.split('\n')[0] != '' else []
-        else:
-            modifiedFilter['results'] = []
-        results.append(modifiedFilter)
-    return results
-
-def getFilesThatMatchFilterForFilenameTypePatternInWord(filters, path):
-    results = []
-    for filter in filters:
-        modifiedFilter = filter;
-        if filter['part'] == 'filename' and filter['type'] == 'regex':
-            filteredResult = commands.getoutput('grep -l -R "' + filter['pattern'] + '" ' + path)
-            modifiedFilter = addArrayElements(modifiedFilter, filteredResult)
-        results.append(modifiedFilter)
-    return results
-
 def addArrayElements(modifiedFilterList, retrievedResults):
     obtainedResults = retrievedResults.split('\n')
     if obtainedResults[0] != '':
@@ -52,26 +30,43 @@ def addArrayElements(modifiedFilterList, retrievedResults):
             modifiedFilterList['results'].append(obtainedResult)
     return modifiedFilterList
 
-def getFilesThatMatchFilterExtensionExactly(filters, path):
+
+def getFilesThatMatchFilterForFilenameTypePattern(filters, path, firstCondition, secondCondition):
     results = []
     for filter in filters:
-        modifiedFilter = filter;
-        if filter['part'] == 'extension' and filter['type'] == 'match':
-            filteredResult = commands.getoutput('find ' + path + ' -iname "*.'+ filter['pattern'] +'"')
-            modifiedFilter['results'] = filteredResult.split('\n') if filteredResult.split('\n')[0] != '' else []
-        results.append(modifiedFilter)
+        filter['results'] = []
+        commandString = 'find ' + path + ' -iname "*'+ filter['pattern'] +'"'
+        results.append(populateFilterResults(filter, commandString, firstCondition, secondCondition))
     return results
 
-def getFilesThatMatchFileNamesExactly(filters, path):
+def getFilesThatMatchFilterForFilenameTypePatternInWord(filters, path, firstCondition, secondCondition):
     results = []
     for filter in filters:
-        modifiedFilter = filter;
-        if filter['part'] == 'filename' and filter['type'] == 'match':
-            filteredResult = commands.getoutput('find ' + path + ' -type f -name "'+ filter['pattern'] +'"')
-            modifiedFilter['results'] = filteredResult.split('\n') if filteredResult.split('\n')[0] != '' else []
-        results.append(modifiedFilter)
+        commandString = 'grep -l -R "' + filter['pattern'] + '" ' + path
+        results.append(populateFilterResults(filter, commandString, firstCondition, secondCondition))
     return results
 
+
+def getFilesThatMatchFilterExtensionExactly(filters, path, firstCondition, secondCondition):
+    results = []
+    for filter in filters:
+        commandString = 'find ' + path + ' -iname "*.'+ filter['pattern'] +'"'
+        results.append(populateFilterResults(filter, commandString, firstCondition, secondCondition))
+    return results
+
+def getFilesThatMatchFileNamesExactly(filters, path, firstCondition, secondCondition):
+    results = []
+    for filter in filters:
+        commandString = 'find ' + path + ' -type f -name "'+ filter['pattern'] +'"'
+        results.append(populateFilterResults(filter, commandString, firstCondition, secondCondition))
+    return results
+
+def populateFilterResults(filter, commandString, firstCondition, secondCondition):
+    modifiedFilter = filter;
+    if filter['part'] == firstCondition and filter['type'] == secondCondition:
+        filteredResult = commands.getoutput(commandString)
+        modifiedFilter = addArrayElements(modifiedFilter, filteredResult)
+    return modifiedFilter
 
 def generateJSONOutputFile(filesWithResults):
     with open('results.json', 'w') as outputFile:
@@ -98,6 +93,10 @@ class Usage(Exception):
 
 def main(argv=None):
     filters = getRegexFilters();
+    filenameCondition = 'filename'
+    extensionCondition = 'extension'
+    matchCondition = 'match'
+    regexCondition = 'regex'
 
     if argv is None:
         argv = sys.argv
@@ -105,10 +104,10 @@ def main(argv=None):
         try:
             args = argv[1]
             files = get_filepaths(args)
-            modifiedFilter = getFilesThatMatchFilterForFilenameTypePattern(filters, args)
-            modifiedFilter = getFilesThatMatchFilterForFilenameTypePatternInWord(modifiedFilter, args)
-            modifiedFilter = getFilesThatMatchFilterExtensionExactly(modifiedFilter, args)
-            modifiedFilter = getFilesThatMatchFileNamesExactly(modifiedFilter, args)
+            modifiedFilter = getFilesThatMatchFilterForFilenameTypePattern(filters, args, filenameCondition, regexCondition)
+            modifiedFilter = getFilesThatMatchFilterForFilenameTypePatternInWord(modifiedFilter, args, filenameCondition, regexCondition)
+            modifiedFilter = getFilesThatMatchFilterExtensionExactly(modifiedFilter, args, extensionCondition, matchCondition)
+            modifiedFilter = getFilesThatMatchFileNamesExactly(modifiedFilter, args, filenameCondition, matchCondition)
 
             generateJSONOutputFile(modifiedFilter)
             generateTextFile(modifiedFilter)
