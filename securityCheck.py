@@ -72,20 +72,26 @@ def generateJSONOutputFile(filesWithResults):
     with open('results.json', 'w') as outputFile:
         json.dump(filesWithResults, outputFile, ensure_ascii=False)
 
+def writeHeader(outputTextFileWriter):
+    outputTextFileWriter.write("==========================================================\n")
+    outputTextFileWriter.write("=================RESULTS OF ANALYSIS======================\n")
+    outputTextFileWriter.write("==========================================================\n\n")
+
+def writeObjectResult(outputTextFileWriter, filterObject):
+    outputTextFileWriter.write("++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++\n")
+    outputTextFileWriter.write("Issue: " + filterObject['caption'] + "\n")
+    outputTextFileWriter.write("-----------------------POSSIBLE COMPROMISED FILES-----------------------\n")
+    for result in filterObject['results']:
+        outputTextFileWriter.write(result + "\n")
+    outputTextFileWriter.write("\n-----------------END OF POSSIBLE COMPROMISED FILES----------------------\n")
+    outputTextFileWriter.write("++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++\n\n")
+
 def generateTextFile(filesWithResults):
     with open('results.txt', 'w') as outputTextFile:
-        outputTextFile.write("==========================================================\n")
-        outputTextFile.write("=================RESULTS OF ANALYSIS======================\n")
-        outputTextFile.write("==========================================================\n\n")
+        writeHeader(outputTextFile)
         for filterObject in filesWithResults:
             if len(filterObject['results']) > 0:
-                outputTextFile.write("++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++\n")
-                outputTextFile.write("Issue: " + filterObject['caption'] + "\n")
-                outputTextFile.write("-----------------------POSSIBLE COMPROMISED FILES-----------------------\n")
-                for result in filterObject['results']:
-                    outputTextFile.write(result + "\n")
-                outputTextFile.write("\n-----------------END OF POSSIBLE COMPROMISED FILES----------------------\n")
-                outputTextFile.write("++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++\n\n")
+                writeObjectResult(outputTextFile, filterObject)               
 
 class Usage(Exception):
     def __init__(self, msg):
