@@ -8,6 +8,20 @@
     {
         "part": "filename",
         "type": "regex",
+        "pattern": "key",
+        "caption": "Potential cryptographic private key",
+        "description": null
+    },
+    {
+        "part": "filename",
+        "type": "regex",
+        "pattern": "key(pair)",
+        "caption": "Potential cryptographic private key",
+        "description": null
+    },
+    {
+        "part": "filename",
+        "type": "regex",
         "pattern": "_dsa",
         "caption": "Private SSH key",
         "description": null
@@ -17,6 +31,76 @@
         "type": "regex",
         "pattern": "_ed25519",
         "caption": "Private SSH key",
+        "description": null
+    },
+    {
+        "part": "filename",
+        "type": "regex",
+        "pattern": ".bash_history",
+        "caption": "Shell command history file",
+        "description": null
+    },
+    {
+        "part": "filename",
+        "type": "regex",
+        "pattern": ".zsh_history",
+        "caption": "Shell command history file",
+        "description": null
+    },
+    {
+        "part": "filename",
+        "type": "regex",
+        "pattern": ".bashrc",
+        "caption": "Shell configuration file",
+        "description": null
+    },
+    {
+        "part": "filename",
+        "type": "regex",
+        "pattern": ".zshrc",
+        "caption": "Shell configuration file",
+        "description": null
+    },
+    {
+        "part": "filename",
+        "type": "regex",
+        "pattern": ".bash_profile",
+        "caption": "Shell profile configuration file",
+        "description": "Shell configuration files might contain information such as server hostnames, passwords and API keys."
+    },
+    {
+        "part": "filename",
+        "type": "regex",
+        "pattern": ".zsh_profile",
+        "caption": "Shell profile configuration file",
+        "description": "Shell configuration files might contain information such as server hostnames, passwords and API keys."
+    },
+    {
+        "part": "filename",
+        "type": "regex",
+        "pattern": ".bash_aliases",
+        "caption": "Shell command alias configuration file",
+        "description": "Shell configuration files might contain information such as server hostnames, passwords and API keys."
+    },
+    {
+        "part": "filename",
+        "type": "regex",
+        "pattern": ".zsh_aliases",
+        "caption": "Shell command alias configuration file",
+        "description": "Shell configuration files might contain information such as server hostnames, passwords and API keys."
+    },
+    {
+        "part": "filename",
+        "type": "regex",
+        "pattern": ".zhistory",
+        "caption": "Shell command history file",
+        "description": null
+    },
+    {
+        "part": "filename",
+        "type": "regex",
+        "pattern": ".s3cfg",
+        "caption": "S3cmd configuration file",
         "description": null
     },
     {
