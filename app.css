@@ -1,0 +1,14 @@
+.main-header{
+	color: blue;
+	font-size: -webkit-xxx-large;
+}
+
+.regex-header{
+	color:red; 
+	font-weight: bolder
+}
+
+.regex-content{
+	background-color: yellowgreen;
+	color: purple;
+}

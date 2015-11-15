@@ -2,7 +2,7 @@
         "part": "filename",
         "type": "regex",
         "pattern": "_rsa",
-        "caption": "Private SSH key",
+        "caption": "Private RSA SSH key",
         "description": null
     },
     {
@@ -16,84 +16,84 @@
         "part": "filename",
         "type": "regex",
         "pattern": "key(pair)",
-        "caption": "Potential cryptographic private key",
+        "caption": "Potential cryptographic private key pair",
         "description": null
     },
     {
         "part": "filename",
         "type": "regex",
         "pattern": "_dsa",
-        "caption": "Private SSH key",
+        "caption": "Private SSH DSA key",
         "description": null
     },
     {
         "part": "filename",
         "type": "regex",
         "pattern": "_ed25519",
-        "caption": "Private SSH key",
+        "caption": "Private SSH ED25519 key",
         "description": null
     },
     {
         "part": "filename",
         "type": "regex",
         "pattern": ".bash_history",
-        "caption": "Shell command history file",
+        "caption": "Bash shell command history file",
         "description": null
     },
     {
         "part": "filename",
         "type": "regex",
         "pattern": ".zsh_history",
-        "caption": "Shell command history file",
+        "caption": "Z-Shell command history file",
         "description": null
     },
     {
         "part": "filename",
         "type": "regex",
         "pattern": ".bashrc",
-        "caption": "Shell configuration file",
+        "caption": "Bash shell configuration file",
         "description": null
     },
     {
         "part": "filename",
         "type": "regex",
         "pattern": ".zshrc",
-        "caption": "Shell configuration file",
+        "caption": "Z-Shell configuration file",
         "description": null
     },
     {
         "part": "filename",
         "type": "regex",
         "pattern": ".bash_profile",
-        "caption": "Shell profile configuration file",
+        "caption": "Bash shell profile configuration file",
         "description": "Shell configuration files might contain information such as server hostnames, passwords and API keys."
     },
     {
         "part": "filename",
         "type": "regex",
         "pattern": ".zsh_profile",
-        "caption": "Shell profile configuration file",
+        "caption": "Z-Shell profile configuration file",
         "description": "Shell configuration files might contain information such as server hostnames, passwords and API keys."
     },
     {
         "part": "filename",
         "type": "regex",
         "pattern": ".bash_aliases",
-        "caption": "Shell command alias configuration file",
+        "caption": "Bash shell command alias configuration file",
         "description": "Shell configuration files might contain information such as server hostnames, passwords and API keys."
     },
     {
         "part": "filename",
         "type": "regex",
         "pattern": ".zsh_aliases",
-        "caption": "Shell command alias configuration file",
+        "caption": "Z-Shell command alias configuration file",
         "description": "Shell configuration files might contain information such as server hostnames, passwords and API keys."
     },
     {
         "part": "filename",
         "type": "regex",
         "pattern": ".zhistory",
-        "caption": "Shell command history file",
+        "caption": "Z-Shell command history file",
         "description": null
     },
     {
@@ -107,42 +107,42 @@
         "part": "filename",
         "type": "regex",
         "pattern": "_ecdsa",
-        "caption": "Private SSH key",
+        "caption": "Private SSH ECDSA key",
         "description": null
     },
     {
         "part": "extension",
         "type": "match",
         "pattern": "pem",
-        "caption": "Potential cryptographic private key",
+        "caption": "Potential cryptographic private PEM key",
         "description": null
     },
     {
         "part": "extension",
         "type": "match",
         "pattern": "pkcs12",
-        "caption": "Potential cryptographic key bundle",
+        "caption": "Potential cryptographic PKCS12 key bundle",
         "description": null
     },
     {
         "part": "extension",
         "type": "match",
         "pattern": "pfx",
-        "caption": "Potential cryptographic key bundle",
+        "caption": "Potential cryptographic PFX key bundle",
         "description": null
     },
     {
         "part": "extension",
         "type": "match",
         "pattern": "p12",
-        "caption": "Potential cryptographic key bundle",
+        "caption": "Potential cryptographic P12 key bundle",
         "description": null
     },
     {
         "part": "extension",
         "type": "match",
         "pattern": "asc",
-        "caption": "Potential cryptographic key bundle",
+        "caption": "Potential cryptographic ASC key bundle",
         "description": null
     },
     {

@@ -117,6 +117,9 @@ def main(argv=None):
 
             generateJSONOutputFile(modifiedFilter)
             generateTextFile(modifiedFilter)
+
+            os.system("python -m SimpleHTTPServer 8080")
+
         except IndexError:
              raise Usage("Please ensure directory is specified.")
     except Usage, err:

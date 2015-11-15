@@ -1,0 +1,24 @@
+<html ng-app="resultsApp">
+<script src="angular.min.js"></script>
+<link rel="stylesheet" type="text/css" href="app.css">
+<body>
+
+<div ng-controller="resultsController" ng-init="initializeValues()">
+
+<h2 class="main-header">Scan Results</h2>
+
+<div ng-repeat="result in compromisedResults track by $id(result)">
+	<p class="regex-header">{{result.caption}} [{{result.results.length}}]</p>
+	<div ng-repeat="filename in result.results track by $id(filename)">
+		<p><span class="regex-content">{{filename}}</span></p>
+	</div>
+</div>
+
+
+</div>
+
+<script src="resultsApp.js"></script>
+<script src="resultsController.js"></script>
+
+</body>
+</html>
