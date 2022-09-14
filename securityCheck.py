@@ -1,17 +1,15 @@
 import os
 import sys
-import getopt
 import json
-from pprint import pprint
-import commands
+import subprocess
 
 def get_filepaths(directory):
     file_paths = []
 
     for root, directories, files in os.walk(directory):
         for filename in files:
-            filepath = os.path.join(root, filename)
-            file_paths.append(filepath)
+          filepath = os.path.join(root, filename)
+          file_paths.append(filepath)
 
     return file_paths
 
@@ -25,9 +23,11 @@ def getRegexFilters():
 
 def addArrayElements(modifiedFilterList, retrievedResults):
     obtainedResults = retrievedResults.split('\n')
+    matches = ['iml', 'target', 'mvnw', 'idea', 'test', '.git']
     if obtainedResults[0] != '':
         for obtainedResult in obtainedResults:
-            modifiedFilterList['results'].append(obtainedResult)
+            if not any(condition in obtainedResult for condition in matches):
+              modifiedFilterList['results'].append(obtainedResult)
     return modifiedFilterList
 
 
@@ -64,7 +64,7 @@ def getFilesThatMatchFileNamesExactly(filters, path, firstCondition, secondCondi
 def populateFilterResults(filter, commandString, firstCondition, secondCondition):
     modifiedFilter = filter;
     if filter['part'] == firstCondition and filter['type'] == secondCondition:
-        filteredResult = commands.getoutput(commandString)
+        filteredResult = subprocess.getoutput(commandString)
         modifiedFilter = addArrayElements(modifiedFilter, filteredResult)
     return modifiedFilter
 
@@ -109,7 +109,6 @@ def main(argv=None):
     try:
         try:
             args = argv[1]
-            files = get_filepaths(args)
             modifiedFilter = getFilesThatMatchFilterForFilenameTypePattern(filters, args, filenameCondition, regexCondition)
             modifiedFilter = getFilesThatMatchFilterForFilenameTypePatternInWord(modifiedFilter, args, filenameCondition, regexCondition)
             modifiedFilter = getFilesThatMatchFilterExtensionExactly(modifiedFilter, args, extensionCondition, matchCondition)
@@ -118,11 +117,11 @@ def main(argv=None):
             generateJSONOutputFile(modifiedFilter)
             generateTextFile(modifiedFilter)
 
-            os.system("python -m SimpleHTTPServer 8080")
+            os.system("python3 -m http.server 8080")
 
         except IndexError:
              raise Usage("Please ensure directory is specified.")
-    except Usage, err:
+    except Usage as err:
         print >>sys.stderr, err.msg
         return 2
 
